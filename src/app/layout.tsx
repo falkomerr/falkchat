@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@/components/providers/theme-provider';
-import { cn } from '@/components/utils/utils';
+import { cn } from '@/utils/utils';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import type { Metadata } from 'next';
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 baseTheme: dark,
             }}>
             <html lang="en" suppressHydrationWarning>
-                <body className={cn(poppins.className, 'bg-white dark:bg-[#313338]')}>
+                <body className={cn(poppins.className, 'bg-white dark:bg-[#151315]')}>
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="dark"

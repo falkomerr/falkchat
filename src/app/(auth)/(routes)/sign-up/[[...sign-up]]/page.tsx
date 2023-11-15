@@ -1,7 +1,7 @@
-import { SignUp } from '@clerk/nextjs';
-import { NextPage } from 'next';
+import { SignUp } from "@clerk/nextjs";
+import { NextPage } from "next";
 
 const SignUpPage: NextPage = ({}) => {
-    return <SignUp />;
+  return <SignUp />;
 };
 export default SignUpPage;

@@ -1,6 +1,6 @@
 import { InitialModal } from '@/components/modals/initial-modal';
-import { db } from '@/components/utils/db';
-import { initialProfile } from '@/components/utils/initial-profile';
+import { db } from '@/utils/db';
+import { initialProfile } from '@/utils/initial-profile';
 import { NextPage } from 'next';
 import { redirect } from 'next/navigation';
 
