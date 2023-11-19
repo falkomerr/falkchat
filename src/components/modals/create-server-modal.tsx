@@ -19,10 +19,10 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useModal } from '@/hooks/use-modal-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -35,14 +35,11 @@ const formSchema = z.object({
     }),
 });
 
-export const InitialModal = ({}) => {
-    const [isMounted, setIsMounted] = useState<boolean>(false);
-
+export const CreateServerModal = ({}) => {
+    const { isOpen, type, onClose } = useModal();
     const router = useRouter();
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+    const isModalOpen = isOpen && type == 'createServer';
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -60,17 +57,19 @@ export const InitialModal = ({}) => {
 
             form.reset();
             router.refresh();
+            onClose();
         } catch (error) {
             console.error(error);
         }
     };
 
-    if (!isMounted) {
-        return null;
-    }
+    const handleClose = () => {
+        form.reset();
+        onClose();
+    };
 
     return (
-        <Dialog open>
+        <Dialog open={isModalOpen} onOpenChange={handleClose}>
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
