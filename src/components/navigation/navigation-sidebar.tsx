@@ -7,9 +7,8 @@ import { currentProfile } from '@/utils/current-profile';
 import { db } from '@/utils/db';
 import { UserButton } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
-import { FC } from 'react';
 
-export const NavigationSidebar: FC<props> = async ({}) => {
+export const NavigationSidebar = async ({}) => {
     const profile = await currentProfile();
 
     if (!profile) {
