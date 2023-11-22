@@ -2,14 +2,14 @@ import ModalProvider from '@/components/providers/modal-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { cn } from '@/utils/utils';
 import { ClerkProvider } from '@clerk/nextjs';
-import { dark } from '@clerk/themes';
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
+import { dark } from '@clerk/themes';
+import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import './globals.css';
 
-const poppins = Poppins({
-    subsets: ['latin'],
+const inter = Inter({
+    subsets: ['latin', 'cyrillic', 'cyrillic-ext'],
     display: 'swap',
     variable: '--font-poppins',
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -22,12 +22,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <ClerkProvider
-            appearance={{
-                baseTheme: dark,
-            }}>
+        <ClerkProvider appearance={{
+          baseTheme: dark
+        }}>
             <html lang="en" suppressHydrationWarning>
-                <body className={cn(poppins.className, 'bg-white dark:bg-[#151315]')}>
+                <body className={cn(inter.className, 'bg-white dark:bg-[#151315]')}>
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="dark"

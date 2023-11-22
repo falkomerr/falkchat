@@ -23,6 +23,7 @@ import { useModal } from '@/hooks/use-modal-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -35,11 +36,12 @@ const formSchema = z.object({
     }),
 });
 
-export const CreateServerModal = ({}) => {
-    const { isOpen, type, onClose } = useModal();
+export const EditServerModal = ({}) => {
+    const { isOpen, type, onClose, data } = useModal();
     const router = useRouter();
 
-    const isModalOpen = isOpen && type == 'createServer';
+    const isModalOpen = isOpen && type == 'editServer';
+    const { server } = data;
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -49,11 +51,18 @@ export const CreateServerModal = ({}) => {
         },
     });
 
+    useEffect(() => {
+        if (server) {
+            form.setValue('name', server.name);
+            form.setValue('imageUrl', server.imageUrl);
+        }
+    }, [server, form]);
+
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         try {
-            await axios.post('/api/servers/', data);
+            await axios.patch(`/api/servers/${server?.id}`, data);
 
             form.reset();
             router.refresh();
@@ -64,18 +73,7 @@ export const CreateServerModal = ({}) => {
     };
 
     const handleClose = async () => {
-        try {
-            if (form.getValues().imageUrl) {
-                await axios.post('/api/servers/deleteImage', {
-                    imageUrl: form.getValues().imageUrl,
-                });
-            }
-        } catch (error) {
-            console.error(error);
-        } finally {
-            form.reset();
-            onClose();
-        }
+        onClose();
     };
 
     return (
@@ -133,7 +131,7 @@ export const CreateServerModal = ({}) => {
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button disabled={isLoading} variant="primary">
-                                Create
+                                Save
                             </Button>
                         </DialogFooter>
                     </form>

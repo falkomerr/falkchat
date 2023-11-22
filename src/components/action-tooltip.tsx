@@ -8,14 +8,15 @@ interface props {
     side?: 'top' | 'right' | 'bottom' | 'left';
     align?: 'start' | 'center' | 'end';
     children: ReactNode;
+    className?: string;
 }
 
-export const ActionTooltip = ({ label, side, align, children }: props) => {
+export const ActionTooltip = ({ label, side, align, children, className }: props) => {
     return (
         <TooltipProvider>
             <Tooltip delayDuration={50}>
                 <TooltipTrigger asChild>{children}</TooltipTrigger>
-                <TooltipContent side={side} align={align}>
+                <TooltipContent side={side} align={align} className={className}>
                     <p className="font-semibold text-sm capitalize">{label.toLowerCase()}</p>
                 </TooltipContent>
             </Tooltip>

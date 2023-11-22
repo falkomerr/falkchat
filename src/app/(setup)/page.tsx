@@ -11,7 +11,7 @@ const SetupPage: NextPage = async ({}) => {
         where: {
             members: {
                 some: {
-                    profileId: profile.profileId,
+                    profileId: profile.id,
                 },
             },
         },

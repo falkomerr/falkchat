@@ -42,13 +42,17 @@ export const ServerHeader = ({ server, role }: props) => {
                     )}
                     {isModerator && <DropdownMenuSeparator />}
                     {isAdmin && (
-                        <DropdownMenuItem className="flex justify-between dark:text-white px-3 py-2 cursor-pointer">
+                        <DropdownMenuItem
+                            className="flex justify-between dark:text-white px-3 py-2 cursor-pointer"
+                            onClick={() => onOpen('editServer', { server })}>
                             Server Settings
                             <Settings className="w-6 h-6" />
                         </DropdownMenuItem>
                     )}
                     {isModerator && (
-                        <DropdownMenuItem className="flex justify-between dark:text-white px-3 py-2 cursor-pointer">
+                        <DropdownMenuItem
+                            className="flex justify-between dark:text-white px-3 py-2 cursor-pointer"
+                            onClick={() => onOpen('users', { server })}>
                             Manage Users
                             <Users className="w-6 h-6" />
                         </DropdownMenuItem>

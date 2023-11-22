@@ -3,7 +3,6 @@
 import { cn } from '@/utils/utils';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import { FC } from 'react';
 import { ActionTooltip } from '../action-tooltip';
 
 interface props {
@@ -35,7 +34,15 @@ export const NavigationItem = ({ id, name, imageUrl }: props) => {
                         'relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden',
                         params?.server === id && 'bg-primary/10 text-primary rounded-[16px]',
                     )}>
-                    <Image fill src={imageUrl} alt="Channel" />
+                    <Image
+                        fill
+                        src={imageUrl}
+                        placeholder="blur"
+                        alt="Channel"
+                        blurDataURL={imageUrl}
+                        sizes="48px"
+                        priority
+                    />
                 </div>
             </button>
         </ActionTooltip>
