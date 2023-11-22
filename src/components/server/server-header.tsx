@@ -58,7 +58,9 @@ export const ServerHeader = ({ server, role }: props) => {
                         </DropdownMenuItem>
                     )}
                     {isModerator && (
-                        <DropdownMenuItem className="flex justify-between dark:text-white px-3 py-2 cursor-pointer">
+                        <DropdownMenuItem
+                            className="flex justify-between dark:text-white px-3 py-2 cursor-pointer"
+                            onClick={() => onOpen('createChannel')}>
                             Create Channel
                             <PlusCircle className="w-6 h-6" />
                         </DropdownMenuItem>
