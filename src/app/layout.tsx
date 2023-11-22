@@ -4,6 +4,7 @@ import { cn } from '@/utils/utils';
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { dark } from '@clerk/themes';
+import { Analytics } from '@vercel/analytics/react';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import './globals.css';
@@ -22,9 +23,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <ClerkProvider appearance={{
-          baseTheme: dark
-        }}>
+        <ClerkProvider
+            appearance={{
+                baseTheme: dark,
+            }}>
             <html lang="en" suppressHydrationWarning>
                 <body className={cn(inter.className, 'bg-white dark:bg-[#151315]')}>
                     <ThemeProvider
@@ -34,6 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         storageKey="falkchat-theme">
                         <ModalProvider />
                         {children}
+                        <Analytics />
                     </ThemeProvider>
                 </body>
             </html>
