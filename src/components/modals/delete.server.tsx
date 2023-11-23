@@ -10,6 +10,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { useModal } from '@/hooks/use-modal-store';
+import { Server } from '@prisma/client';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -31,9 +32,9 @@ export const DeleteServer = ({}) => {
         try {
             setLoading(true);
 
-            await axios.delete(`/api/servers/${server?.id}`);
+            const response = await axios.delete<Server>(`/api/servers/${server?.id}`);
             router.refresh();
-            router.push('/');
+            router.push(`/servers/${response.data.id}`);
             onClose();
         } catch (error) {
             console.error(error);

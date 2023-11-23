@@ -1,6 +1,7 @@
 import { currentProfile } from '@/utils/current-profile';
 import { db } from '@/utils/db';
 import { NextResponse } from 'next/server';
+import { UTApi } from 'uploadthing/server';
 
 export async function PATCH(req: Request, { params }: { params: { serverId: string } }) {
     try {
@@ -41,14 +42,36 @@ export async function DELETE(req: Request, { params }: { params: { serverId: str
             return new NextResponse('Server ID Missing', { status: 400 });
         }
 
-        const server = await db.server.delete({
+        const server = await db.server.findFirst({
             where: {
                 id: params.serverId,
                 profileId: profile.id,
             },
         });
+        const imageId = server?.imageUrl.split('/').pop() as string;
 
-        return NextResponse.json(server);
+        const utapi = new UTApi();
+        await utapi.deleteFiles(imageId);
+
+        await db.server.delete({
+            where: {
+                id: params.serverId,
+                profileId: profile.id,
+            },
+        });
+        const firstServer = await db.server.findFirst({
+            where: {
+                id: {
+                    not: params.serverId,
+                },
+                members: {
+                    some: {
+                        profileId: profile.id,
+                    },
+                },
+            },
+        });
+        return NextResponse.json(firstServer);
     } catch (error) {
         console.error('[SERVER_ID]', error);
         return new NextResponse('Internal Error', { status: 500 });
