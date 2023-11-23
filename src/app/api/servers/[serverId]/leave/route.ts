@@ -35,7 +35,24 @@ export async function PATCH(req: Request, { params }: { params: { serverId: stri
             },
         });
 
-        return NextResponse.json(server);
+        const firstServer = await db.server.findFirst({
+            where: {
+                id: {
+                    not: params.serverId,
+                },
+                members: {
+                    some: {
+                        profileId: profile.id,
+                    },
+                },
+            },
+        });
+
+        if (firstServer) {
+            return NextResponse.json(`/servers/${firstServer.id}`);
+        }
+
+        return NextResponse.json(`/`);
     } catch (error) {
         console.error('[SERVER_LEAVE_ERROR]', error);
         return new NextResponse('Internal Error', { status: 500 });

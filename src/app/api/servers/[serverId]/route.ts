@@ -71,7 +71,10 @@ export async function DELETE(req: Request, { params }: { params: { serverId: str
                 },
             },
         });
-        return NextResponse.json(firstServer);
+        if (firstServer) {
+            return NextResponse.json(`/servers/${firstServer.id}`);
+        }
+        return NextResponse.json(`/`);
     } catch (error) {
         console.error('[SERVER_ID]', error);
         return new NextResponse('Internal Error', { status: 500 });

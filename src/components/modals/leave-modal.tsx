@@ -31,9 +31,9 @@ export const LeaveServer = ({}) => {
         try {
             setLoading(true);
 
-            await axios.patch(`/api/servers/${server?.id}/leave/`);
-            router.refresh();
-            router.push('/');
+            const response = await axios.patch(`/api/servers/${server?.id}/leave/`);
+            router.refresh()
+            router.push(response.data);
         } catch (error) {
             console.error(error);
         } finally {
