@@ -6,6 +6,8 @@ import { InviteModal } from '@/components/modals/invite-modal';
 import { ManageUsers } from '@/components/modals/users-modal';
 import { useEffect, useState } from 'react';
 import { CreateChannelModal } from '../modals/create-channel-modal';
+import { DeleteServer } from '../modals/delete.server';
+import { LeaveServer } from '../modals/leave-modal';
 
 const ModalProvider = () => {
     const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -22,6 +24,8 @@ const ModalProvider = () => {
             <EditServerModal />
             <CreateChannelModal />
             <ManageUsers />
+            <LeaveServer />
+            <DeleteServer />
             <CreateServerModal />
             <InviteModal />
         </>
