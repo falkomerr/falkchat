@@ -1,13 +1,15 @@
 'use client';
 
+import { CreateChannelModal } from '@/components/modals/create-channel-modal';
 import { CreateServerModal } from '@/components/modals/create-server-modal';
+import { DeleteChannel } from '@/components/modals/delete-channel-modal';
+import { DeleteServer } from '@/components/modals/delete-server';
+import { EditChannelModal } from '@/components/modals/edit-channel-modal';
 import { EditServerModal } from '@/components/modals/edit-server-modal';
 import { InviteModal } from '@/components/modals/invite-modal';
+import { LeaveServer } from '@/components/modals/leave-modal';
 import { ManageUsers } from '@/components/modals/users-modal';
 import { useEffect, useState } from 'react';
-import { CreateChannelModal } from '../modals/create-channel-modal';
-import { DeleteServer } from '../modals/delete.server';
-import { LeaveServer } from '../modals/leave-modal';
 
 const ModalProvider = () => {
     const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -21,13 +23,21 @@ const ModalProvider = () => {
     }
     return (
         <>
-            <EditServerModal />
-            <CreateChannelModal />
-            <ManageUsers />
-            <LeaveServer />
-            <DeleteServer />
-            <CreateServerModal />
-            <InviteModal />
+            <>
+                <CreateServerModal />
+                <DeleteServer />
+                <LeaveServer />
+            </>
+            <>
+                <ManageUsers />
+                <EditServerModal />
+                <InviteModal />
+            </>
+            <>
+                <CreateChannelModal />
+                <DeleteChannel />
+                <EditChannelModal />
+            </>
         </>
     );
 };
