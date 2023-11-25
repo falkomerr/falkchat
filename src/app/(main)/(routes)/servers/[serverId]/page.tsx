@@ -1,6 +1,8 @@
-import { NextPage } from 'next';
+interface props {
+    serverId: string;
+}
 
-const ServerIdPage: NextPage = ({}) => {
+const ServerIdPage = async ({ serverId }: props) => {
     return <div>wdkwkd</div>;
 };
 export default ServerIdPage;
