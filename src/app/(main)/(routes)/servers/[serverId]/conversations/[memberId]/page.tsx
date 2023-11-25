@@ -1,6 +1,4 @@
-import { NextPage } from 'next';
-
-const MemberIDPage: NextPage = ({}) => {
+const MemberIDPage = ({}) => {
     return <div>wdwdw</div>;
 };
 export default MemberIDPage;
