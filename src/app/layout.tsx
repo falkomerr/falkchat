@@ -2,12 +2,13 @@ import ModalProvider from '@/components/providers/modal-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { cn } from '@/utils/utils';
 import { ClerkProvider } from '@clerk/nextjs';
-import type { Metadata } from 'next';
 import { dark } from '@clerk/themes';
 import { Analytics } from '@vercel/analytics/react';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import './globals.css';
+import Providers from './providers';
 
 const inter = Inter({
     subsets: ['latin', 'cyrillic', 'cyrillic-ext'],
@@ -29,15 +30,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             }}>
             <html lang="en" suppressHydrationWarning>
                 <body className={cn(inter.className, 'bg-white dark:bg-[#151315]')}>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="dark"
-                        enableSystem={false}
-                        storageKey="falkchat-theme">
-                        <ModalProvider />
-                        {children}
-                        <Analytics />
-                    </ThemeProvider>
+                    <Providers>
+                        <ThemeProvider
+                            attribute="class"
+                            defaultTheme="dark"
+                            enableSystem={false}
+                            storageKey="falkchat-theme">
+                            <ModalProvider />
+                            {children}
+                            <Analytics />
+                        </ThemeProvider>
+                    </Providers>
                 </body>
             </html>
         </ClerkProvider>
