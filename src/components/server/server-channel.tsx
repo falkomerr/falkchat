@@ -34,6 +34,7 @@ export const ServerChannel = ({ channel, server, role }: props) => {
         event.stopPropagation();
         onOpen(action, { channel, server });
     };
+  
     return (
         <button
             onClick={() => onClick()}

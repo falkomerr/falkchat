@@ -1,7 +1,6 @@
-import { SignIn } from "@clerk/nextjs";
-import { NextPage } from "next";
+import { SignIn } from '@clerk/nextjs';
 
-const SignInPage: NextPage = ({}) => {
-  return <SignIn />;
+const SignInPage = ({}) => {
+    return <SignIn />;
 };
 export default SignInPage;
