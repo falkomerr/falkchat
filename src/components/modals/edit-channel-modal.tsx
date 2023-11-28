@@ -31,7 +31,7 @@ import { ChannelType } from '@prisma/client';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import qs from 'query-string';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -62,12 +62,12 @@ export const EditChannelModal = ({}) => {
         },
     });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (channel) {
             form.setValue('name', channel.name);
             form.setValue('type', channel.type);
         }
-    }, [channel]);
+    }, [form, channel]);
 
     const isLoading = form.formState.isSubmitting;
 

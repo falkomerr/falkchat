@@ -20,6 +20,7 @@ export async function DELETE(req: Request, { params }: { params: { channelId: st
         if (!serverId) {
             return new NextResponse('Server ID Missing', { status: 400 });
         }
+        
 
         const server = await db.server.update({
             where: {

@@ -2,6 +2,7 @@ import { currentProfile } from '@/utils/current-profile';
 import { db } from '@/utils/db';
 import { MemberRole } from '@prisma/client';
 import { NextResponse } from 'next/server';
+import { UTApi } from 'uploadthing/server';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(req: Request) {
@@ -11,6 +12,19 @@ export async function POST(req: Request) {
 
         if (!profile) {
             return new NextResponse('Unauthorized', { status: 401 });
+        }
+
+        if (imageUrl) {
+            const server = await db.server.findFirst({
+                where: {
+                    imageUrl: imageUrl,
+                },
+            });
+
+            const imageId = server?.imageUrl.split('/').pop();
+
+            const utapi = new UTApi();
+            imageId && (await utapi.deleteFiles(imageId));
         }
 
         const server = await db.server.create({

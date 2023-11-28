@@ -21,7 +21,7 @@ export const NavigationItem = ({ id, name, imageUrl }: props) => {
 
     return (
         <ActionTooltip side="right" align="center" label={name}>
-            <button onClick={onClick} className="group relative flex items-center">
+            <button onClick={onClick} className="group relative flex items-center outline-none">
                 <div
                     className={cn(
                         'absolute left-0 bg-primary rounder-r-full transition-all w-[4px] rounded-r-md',

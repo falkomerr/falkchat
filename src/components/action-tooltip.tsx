@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/utils/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip';
 import { ReactNode } from 'react';
 
@@ -16,7 +17,10 @@ export const ActionTooltip = ({ label, side, align, children, className }: props
         <TooltipProvider>
             <Tooltip delayDuration={50}>
                 <TooltipTrigger asChild>{children}</TooltipTrigger>
-                <TooltipContent side={side} align={align} className={className}>
+                <TooltipContent
+                    side={side}
+                    align={align}
+                    className={cn(className, 'hidden md:block')}>
                     <p className="font-semibold text-sm capitalize">{label.toLowerCase()}</p>
                 </TooltipContent>
             </Tooltip>
