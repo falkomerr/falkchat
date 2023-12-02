@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -53,13 +50,19 @@ enum MemberRole {
 
 model Member {
   id String @id @default(uuid())
+  role MemberRole @default(GUEST)
 
-  role      MemberRole @default(GUEST)
   profileId String
-  profile   Profile    @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   serverId String
-  server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  messages Message[]
+  directMessages DirectMessage[]
+
+  conversationsInitiated Conversation[] @relation("FirstMember")
+  conversationsReceived Conversation[] @relation("SecondMember")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -89,6 +92,65 @@ model Channel {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  messages Message[]
+
   @@index([profileId])
   @@index([serverId])
+}
+
+model Message {
+  id String @id @default(uuid())
+
+  content String  @db.Text
+  fileUrl String? @db.Text
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  deleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([channelId])
+  @@index([memberId])
+}
+
+model Conversation {
+  id String @id @default(uuid())
+
+  firstMemberId String
+  firstMember Member @relation("FirstMember", fields: [firstMemberId], references: [id], onDelete: Cascade)
+
+  secondMemberId String
+  secondMember Member @relation("SecondMember", fields: [secondMemberId], references: [id], onDelete: Cascade)
+
+  directMessages DirectMessage[]
+
+  @@index([secondMemberId])
+
+  @@unique([firstMemberId, secondMemberId])
+}
+
+model DirectMessage {
+  id String @id @default(uuid())
+  content String @db.Text
+  fileUrl String? @db.Text
+
+  memberId String
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  conversationId String
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  deleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([conversationId])
 }
