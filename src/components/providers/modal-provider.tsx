@@ -1,45 +1,50 @@
-"use client";
+'use client';
 
-import { CreateChannelModal } from "@/components/modals/create-channel-modal";
-import { CreateServerModal } from "@/components/modals/create-server-modal";
-import { DeleteChannel } from "@/components/modals/delete-channel-modal";
-import { DeleteServer } from "@/components/modals/delete-server";
-import { EditChannelModal } from "@/components/modals/edit-channel-modal";
-import { EditServerModal } from "@/components/modals/edit-server-modal";
-import { InviteModal } from "@/components/modals/invite-modal";
-import { LeaveServer } from "@/components/modals/leave-modal";
-import { ManageUsers } from "@/components/modals/users-modal";
-import { useEffect, useState } from "react";
+import * as Modals from '@/components/modals';
+import { useEffect, useState } from 'react';
+
+type ModalKey = keyof typeof Modals;
+
+const modalKeys: ModalKey[] = Object.keys(Modals) as ModalKey[];
+
+function createModalGroups(modalKeys: ModalKey[]): React.ComponentType[] {
+    const groups: React.ComponentType[][] = [];
+    let currentGroup: React.ComponentType[] = [];
+
+    modalKeys.sort().forEach((modalKey, index) => {
+        currentGroup.push(Modals[modalKey]);
+
+        if ((index + 1) % 3 === 0 || index === modalKeys.length - 1) {
+            groups.push(currentGroup);
+            currentGroup = [];
+        }
+    });
+
+    return groups.flat();
+}
+
+const modalGroups: React.ComponentType[] = createModalGroups(modalKeys);
 
 const ModalProvider = () => {
-  const [isMounted, setIsMounted] = useState<boolean>(false);
+    const [isMounted, setIsMounted] = useState<boolean>(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
-  if (!isMounted) {
-    return null;
-  }
-  return (
-    <>
-      <>
-        <CreateServerModal />
-        <DeleteServer />
-        <LeaveServer />
-      </>
-      <>
-        <ManageUsers />
-        <EditServerModal />
-        <InviteModal />
-      </>
-      <>
-        <CreateChannelModal />
-        <DeleteChannel />
-        <EditChannelModal />
-      </>
-    </>
-  );
+    if (!isMounted) {
+        return null;
+    }
+
+    return (
+        <>
+            {modalGroups.map((Modal, index) => (
+                <div key={index}>
+                    <Modal />
+                </div>
+            ))}
+        </>
+    );
 };
 
 export default ModalProvider;

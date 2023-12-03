@@ -12,19 +12,16 @@ import {
 import { useModal } from '@/hooks/use-modal-store';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import qs from 'query-string';
 import { useState } from 'react';
 
-export const DeleteChannelModal = ({}) => {
+export const DeleteServerModal = ({}) => {
     const { isOpen, type, onClose, data } = useModal();
-
     const router = useRouter();
-
-    const { server, channel } = data;
+    const { server } = data;
 
     const [loading, setLoading] = useState<boolean>(false);
 
-    const isModalOpen = isOpen && type == 'deleteChannel';
+    const isModalOpen = isOpen && type == 'deleteServer';
 
     const onCancel = () => {
         onClose();
@@ -34,16 +31,9 @@ export const DeleteChannelModal = ({}) => {
         try {
             setLoading(true);
 
-            const url = qs.stringifyUrl({
-                url: `/api/channels/${channel?.id}`,
-                query: {
-                    serverId: server?.id,
-                },
-            });
-
-            await axios.delete(url);
+            const response = await axios.delete(`/api/servers/${server?.id}`);
             router.refresh();
-            router.push(`/servers/${server?.id}`);
+            router.push(response.data);
             onClose();
         } catch (error) {
             console.error(error);
@@ -57,15 +47,12 @@ export const DeleteChannelModal = ({}) => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Delete Chanel
+                        Delete Server
                     </DialogTitle>
-                    <DialogDescription className="text-center text-zinc-500 ">
-                        Do you really want to do this? The {channel?.type.toLowerCase()}
-                        -channel{' '}
-                        <span className="text-indigo-500 font-semibold  ">
-                            #{channel?.name}
-                        </span>{' '}
-                        will be permamently deleted.
+                    <DialogDescription className="text-center text-zinc-500">
+                        Do you really want to do this? The{' '}
+                        <span className="text-indigo-500 font-semibold">{server?.name}</span> will
+                        be permamently deleted.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="bg-gray-100 px-6 py-4">

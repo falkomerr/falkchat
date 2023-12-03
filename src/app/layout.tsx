@@ -7,6 +7,7 @@ import { dark } from '@clerk/themes';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Head from 'next/head';
 import { ReactNode } from 'react';
 import './globals.css';
 
@@ -29,6 +30,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 baseTheme: dark,
             }}>
             <html lang="en" suppressHydrationWarning>
+                <Head>
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+                    />
+                </Head>
                 <body className={cn(inter.className, 'bg-white dark:bg-[#151315]')}>
                     <ThemeProvider
                         attribute="class"

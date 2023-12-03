@@ -35,11 +35,11 @@ const formSchema = z.object({
     }),
 });
 
-export const CreateServerModal = ({}) => {
-    const { isOpen, type, onClose } = useModal();
+export const MessageAttachmentModal = ({}) => {
+    const { isOpen, onClose, type, data } = useModal();
     const router = useRouter();
 
-    const isModalOpen = isOpen && type == 'createServer';
+    const isModalOpen = isOpen && type == 'messageAttachment';
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -49,32 +49,21 @@ export const CreateServerModal = ({}) => {
         },
     });
 
+    const handleClose = () => {
+        form.reset();
+        onClose();
+    };
+
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         try {
             await axios.post('/api/servers/', data);
 
-            form.reset();
             router.refresh();
-            onClose();
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const handleClose = async () => {
-        try {
-            if (form.getValues().imageUrl) {
-                await axios.post('/api/servers/deleteImage', {
-                    imageUrl: form.getValues().imageUrl,
-                });
-            }
-        } catch (error) {
-            console.error(error);
-        } finally {
             form.reset();
-            onClose();
+        } catch (error) {
+            console.error(error);
         }
     };
 
