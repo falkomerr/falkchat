@@ -1,7 +1,7 @@
-import { ChatHeader } from '@/components/chat/chat-header';
-import { ChatInput } from '@/components/chat/chat-input';
-import { currentProfile } from '@/utils/current-profile';
-import { db } from '@/utils/db';
+import { ChatInput } from '@/features/chat-input';
+import { currentProfile } from '@/shared/utils/lib/current-profile';
+import { db } from '@/shared/utils/lib/db';
+import { ChatHeader } from '@/widgets/modals/ui/chat-header';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
