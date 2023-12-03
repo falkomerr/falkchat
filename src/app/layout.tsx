@@ -1,7 +1,5 @@
-import ModalProvider from '@/components/providers/modal-provider';
-import { SocketProvider } from '@/components/providers/socket-provider';
-import { ThemeProvider } from '@/components/providers/theme-provider';
-import { cn } from '@/utils/utils';
+import { ModalProvider, SocketProvider, ThemeProvider } from '@/shared/providers';
+import { cn } from '@/shared/utils/';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import { Analytics } from '@vercel/analytics/react';
@@ -28,7 +26,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ClerkProvider
             appearance={{
                 baseTheme: dark,
-            }}>
+            }}
+        >
             <html lang="en" suppressHydrationWarning>
                 <Head>
                     <meta
@@ -41,7 +40,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         attribute="class"
                         defaultTheme="dark"
                         enableSystem={false}
-                        storageKey="falkchat-theme">
+                        storageKey="falkchat-theme"
+                    >
                         <SocketProvider>
                             <ModalProvider />
                             {children}

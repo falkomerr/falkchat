@@ -1,6 +1,6 @@
-import { NextApiResponseServerIO } from '@/types';
-import { pagesCurrentProfile } from '@/utils/current-profile-pages';
-import { db } from '@/utils/db';
+import { pagesCurrentProfile } from '@/shared/utils/lib/current-profile-pages';
+import { db } from '@/shared/utils/lib/db';
+import { NextApiResponseServerIO } from '@/shared/types';
 import { NextApiRequest } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponseServerIO) {
