@@ -2,6 +2,7 @@
 
 import { FileUpload } from '@/features/file-upload';
 import { useModal } from '@/shared/hooks/lib/use-modal-store';
+import qs from 'query-string';
 import { Button } from '@/shared/ui/button';
 import {
     Dialog,
@@ -11,20 +12,17 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/shared/ui/dialog';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form';
-import { Input } from '@/shared/ui/input';
+import { Form, FormControl, FormField, FormItem } from '@/shared/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { useEffect } from 'react';
 
 const formSchema = z.object({
-    name: z.string().min(1, {
-        message: 'Name is required.',
-    }),
-    imageUrl: z.string().min(1, {
-        message: 'Image is required.',
+    fileUrl: z.string().min(1, {
+        message: 'Attachment is required.',
     }),
 });
 
@@ -37,10 +35,15 @@ export const MessageAttachmentModal = ({}) => {
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            name: '',
-            imageUrl: '',
+            fileUrl: '',
         },
     });
+
+    useEffect(() => {
+        if (isModalOpen) {
+            form.reset();
+        }
+    }, [isModalOpen, form]);
 
     const handleClose = () => {
         form.reset();
@@ -49,12 +52,17 @@ export const MessageAttachmentModal = ({}) => {
 
     const isLoading = form.formState.isSubmitting;
 
-    const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            await axios.post('/api/servers/', data);
+            const url = qs.stringifyUrl({
+                url: data?.apiUrl as string,
+                query: data.query,
+            });
+            await axios.post(url, { ...values, content: values.fileUrl });
 
-            router.refresh();
             form.reset();
+            router.refresh();
+            handleClose();
         } catch (error) {
             console.error(error);
         }
@@ -65,11 +73,10 @@ export const MessageAttachmentModal = ({}) => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Customize your server
+                        Add a attachment
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
-                        Give your server a personality with a name and an image. You can always
-                        change it later in server settigs.
+                        Send a file as a message
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
@@ -78,12 +85,12 @@ export const MessageAttachmentModal = ({}) => {
                             <div className="flex items-center justify-center text-center">
                                 <FormField
                                     control={form.control}
-                                    name="imageUrl"
+                                    name="fileUrl"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
                                                 <FileUpload
-                                                    endpoint="serverImage"
+                                                    endpoint="messageFile"
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                 />
@@ -92,30 +99,10 @@ export const MessageAttachmentModal = ({}) => {
                                     )}
                                 />
                             </div>
-                            <FormField
-                                control={form.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                                            Server name
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                disabled={isLoading}
-                                                className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                                                placeholder="Enter server name"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button disabled={isLoading} variant="primary">
-                                Create
+                                Send
                             </Button>
                         </DialogFooter>
                     </form>

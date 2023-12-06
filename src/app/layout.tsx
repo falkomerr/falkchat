@@ -1,11 +1,10 @@
-import { ModalProvider, SocketProvider, ThemeProvider } from '@/shared/providers';
+import { ModalProvider, QueryProvider, SocketProvider, ThemeProvider } from '@/shared/providers';
 import { cn } from '@/shared/utils/';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import { Analytics } from '@vercel/analytics/react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import Head from 'next/head';
 import { ReactNode } from 'react';
 import './globals.css';
 
@@ -21,30 +20,29 @@ export const metadata: Metadata = {
         'FalkChat is your go-to destination for seamless and engaging online conversations. Whether you want to connect with friends, meet new people, or discuss your favorite topics, FalkChat offers a versatile and user-friendly platform to make it happen.',
 };
 
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 0,
+    maximumScale: 1,
+    userScalable: false,
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <ClerkProvider
             appearance={{
                 baseTheme: dark,
-            }}
-        >
+            }}>
             <html lang="en" suppressHydrationWarning>
-                <Head>
-                    <meta
-                        name="viewport"
-                        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-                    />
-                </Head>
                 <body className={cn(inter.className, 'bg-white dark:bg-[#151315]')}>
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="dark"
                         enableSystem={false}
-                        storageKey="falkchat-theme"
-                    >
+                        storageKey="falkchat-theme">
                         <SocketProvider>
                             <ModalProvider />
-                            {children}
+                            <QueryProvider>{children}</QueryProvider>
                             <Analytics />
                         </SocketProvider>
                     </ThemeProvider>

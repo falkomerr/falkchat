@@ -71,7 +71,7 @@ export const InitialModal = ({}) => {
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
                         Give your server a personality with a name and an image. You can always
-                        change it later in server settigs.
+                        change it later in server settings.
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
