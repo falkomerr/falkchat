@@ -63,7 +63,8 @@ export const DeleteMessageModal = ({}) => {
                             disabled={loading}
                             onClick={onCancel}
                             variant="ghost"
-                            className="outline-none">
+                            className="outline-none"
+                        >
                             Cancel
                         </Button>
                         <Button disabled={loading} onClick={onConfirm} variant="destructive">

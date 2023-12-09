@@ -15,7 +15,8 @@ export const FileImage = ({ fileUrl, content }: props) => {
             href={fileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48">
+            className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
+        >
             {isLoading && <Skeleton className="h-full w-full bg-gray-400" />}
             <NextImage
                 src={fileUrl}

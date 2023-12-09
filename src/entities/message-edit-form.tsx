@@ -15,7 +15,8 @@ export const MessageEditForm = ({ form, onSubmit, isLoading }: props) => {
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex items-start w-full gap-x-2 pt-2 flex-col">
+                className="flex items-start w-full gap-x-2 pt-2 flex-col"
+            >
                 <div className="flex items-center w-full gap-x-2">
                     <FormField
                         control={form.control}

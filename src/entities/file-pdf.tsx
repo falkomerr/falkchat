@@ -14,7 +14,8 @@ export const FilePdf = ({ fileUrl, label = 'PDF File' }: props) => {
                 href={fileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline">
+                className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+            >
                 {label}
             </a>
         </div>

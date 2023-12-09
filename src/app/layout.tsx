@@ -32,14 +32,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ClerkProvider
             appearance={{
                 baseTheme: dark,
-            }}>
+            }}
+        >
             <html lang="en" suppressHydrationWarning>
                 <body className={cn(inter.className, 'bg-white dark:bg-[#151315]')}>
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="dark"
                         enableSystem={false}
-                        storageKey="falkchat-theme">
+                        storageKey="falkchat-theme"
+                    >
                         <SocketProvider>
                             <ModalProvider />
                             <QueryProvider>{children}</QueryProvider>
