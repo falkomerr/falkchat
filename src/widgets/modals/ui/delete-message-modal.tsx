@@ -11,20 +11,17 @@ import {
     DialogTitle,
 } from '@/shared/ui/dialog';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import qs from 'query-string';
 import { useState } from 'react';
 
-export const DeleteChannelModal = ({}) => {
+export const DeleteMessageModal = ({}) => {
     const { isOpen, type, onClose, data } = useModal();
 
-    const router = useRouter();
-
-    const { server, channel } = data;
+    const { apiUrl, query } = data;
 
     const [loading, setLoading] = useState<boolean>(false);
 
-    const isModalOpen = isOpen && type == 'deleteChannel';
+    const isModalOpen = isOpen && type == 'deleteMessage';
 
     const onCancel = () => {
         onClose();
@@ -35,15 +32,12 @@ export const DeleteChannelModal = ({}) => {
             setLoading(true);
 
             const url = qs.stringifyUrl({
-                url: `/api/channels/${channel?.id}`,
-                query: {
-                    serverId: server?.id,
-                },
+                url: apiUrl || '',
+                query: query,
             });
 
             await axios.delete(url);
-            router.refresh();
-            router.push(`/servers/${server?.id}`);
+
             onClose();
         } catch (error) {
             console.error(error);
@@ -60,12 +54,7 @@ export const DeleteChannelModal = ({}) => {
                         Delete Message
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500 ">
-                        Do you really want to do this? The {channel?.type.toLowerCase()}
-                        -channel{' '}
-                        <span className="text-indigo-500 font-semibold  ">
-                            #{channel?.name}
-                        </span>{' '}
-                        will be permamently deleted.
+                        Do you really want to do this? The message will be permanently deleted.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="bg-gray-100 px-6 py-4">

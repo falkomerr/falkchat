@@ -11,7 +11,8 @@ export type ModalType =
     | 'deleteServer'
     | 'deleteChannel'
     | 'editChannel'
-    | 'messageAttachment';
+    | 'messageAttachment'
+    | 'deleteMessage';
 
 interface ModalStore {
     type: ModalType | null;
