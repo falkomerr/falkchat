@@ -8,6 +8,8 @@ import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import './globals.css';
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 const inter = Inter({
     subsets: ['latin', 'cyrillic', 'cyrillic-ext'],
     display: 'swap',
@@ -32,20 +34,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ClerkProvider
             appearance={{
                 baseTheme: dark,
-            }}
-        >
+            }}>
             <html lang="en" suppressHydrationWarning>
                 <body className={cn(inter.className, 'bg-white dark:bg-[#151315]')}>
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="dark"
                         enableSystem={false}
-                        storageKey="falkchat-theme"
-                    >
+                        storageKey="falkchat-theme">
                         <SocketProvider>
                             <ModalProvider />
                             <QueryProvider>{children}</QueryProvider>
                             <Analytics />
+                            <SpeedInsights />
                         </SocketProvider>
                     </ThemeProvider>
                 </body>
