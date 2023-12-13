@@ -57,7 +57,7 @@ export const DeleteChannelModal = ({}) => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Delete Message
+                        Delete Channel
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500 ">
                         Do you really want to do this? The {channel?.type.toLowerCase()}
@@ -74,8 +74,7 @@ export const DeleteChannelModal = ({}) => {
                             disabled={loading}
                             onClick={onCancel}
                             variant="ghost"
-                            className="outline-none"
-                        >
+                            className="outline-none">
                             Cancel
                         </Button>
                         <Button disabled={loading} onClick={onConfirm} variant="destructive">

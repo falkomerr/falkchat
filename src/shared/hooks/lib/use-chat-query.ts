@@ -1,6 +1,6 @@
 import { useSocket } from '@/shared/providers/ui/socket-provider';
-import qs from 'query-string';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import qs from 'query-string';
 
 interface props {
     queryKey: string;

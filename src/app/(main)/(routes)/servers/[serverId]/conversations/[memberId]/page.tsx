@@ -1,55 +1,52 @@
-import { createOrFindConversation } from '@/shared/utils/lib/conversation';
-import { currentProfile } from '@/shared/utils/lib/current-profile';
-import { db } from '@/shared/utils/lib/db';
-import { ChatHeader } from '@/widgets/modals/ui/chat-header';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
-interface props {
+import { ChatHeader } from '@/features/chat-header';
+import { ChatInput } from '@/features/chat-input';
+import { createOrFindConversation, currentProfile, db } from '@/shared/utils';
+import { ChatMessages } from '@/widgets/chat-messages';
+import { MediaRoom } from '@/widgets/media-room';
+
+interface MemberIdPageProps {
     params: {
         memberId: string;
         serverId: string;
     };
+    searchParams: {
+        video?: boolean;
+    };
 }
 
-const MemberIDPage = async ({ params }: props) => {
+const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
     const profile = await currentProfile();
 
     if (!profile) {
         return redirectToSignIn();
     }
 
-    const member = await db.member.findFirst({
+    const currentMember = await db.member.findFirst({
         where: {
             serverId: params.serverId,
             profileId: profile.id,
         },
         include: {
             profile: true,
-            server: {
-                include: {
-                    channels: {
-                        where: {
-                            name: 'general',
-                        },
-                    },
-                },
-            },
         },
     });
 
-    if (!member) {
+    if (!currentMember) {
         return redirect('/');
     }
 
-    const conversation = await createOrFindConversation(member.id, params.memberId);
+    const conversation = await createOrFindConversation(currentMember.id, params.memberId);
 
     if (!conversation) {
-        return redirect(`/servers/${params?.serverId}/channels/${member.server.channels[0]}`);
+        return redirect(`/servers/${params.serverId}`);
     }
 
-    const otherMember =
-        member.profileId === profile.id ? conversation.secondMember : conversation.firstMember;
+    const { firstMember, secondMember } = conversation;
+
+    const otherMember = firstMember.profileId === profile.id ? secondMember : firstMember;
 
     return (
         <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
@@ -59,7 +56,34 @@ const MemberIDPage = async ({ params }: props) => {
                 serverId={params.serverId}
                 type="conversation"
             />
+            {searchParams.video && <MediaRoom chatId={conversation.id} video={true} audio={true} />}
+            {!searchParams.video && (
+                <>
+                    <ChatMessages
+                        member={currentMember}
+                        name={otherMember.profile.name}
+                        chatId={conversation.id}
+                        type="conversation"
+                        apiUrl="/api/direct-messages"
+                        paramKey="conversationId"
+                        paramValue={conversation.id}
+                        socketUrl="/api/socket/direct-messages"
+                        socketQuery={{
+                            conversationId: conversation.id,
+                        }}
+                    />
+                    <ChatInput
+                        name={otherMember.profile.name}
+                        type="conversation"
+                        apiUrl="/api/socket/direct-messages"
+                        query={{
+                            conversationId: conversation.id,
+                        }}
+                    />
+                </>
+            )}
         </div>
     );
 };
-export default MemberIDPage;
+
+export default MemberIdPage;

@@ -44,6 +44,9 @@ export async function POST(req: Request) {
                     },
                 },
             },
+            include: {
+                channels: true,
+            },
         });
 
         return NextResponse.json(server);

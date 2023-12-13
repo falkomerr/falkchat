@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Member, Profile } from '@prisma/client';
-import { UserAvatar } from '@/entities/user-avatar';
 import { ActionTooltip } from '@/entities/action-tooltip';
-import { ShieldAlert, ShieldCheck } from 'lucide-react';
-import { FilePdf } from '@/entities/file-pdf';
 import { FileImage } from '@/entities/file-image';
-import * as z from 'zod';
+import { FilePdf } from '@/entities/file-pdf';
 import { MessageContent } from '@/entities/message-content';
-import { MessageOptions } from '@/entities/message-options';
-import { useForm } from 'react-hook-form';
-import qs from 'query-string';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { MessageEditForm } from '@/entities/message-edit-form';
+import { MessageOptions } from '@/entities/message-options';
+import { UserAvatar } from '@/entities/user-avatar';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Member, Profile } from '@prisma/client';
 import axios from 'axios';
+import { ShieldAlert, ShieldCheck } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import qs from 'query-string';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 interface props {
     id: string;
@@ -106,17 +107,31 @@ export const ChatItem = ({
             console.error(error);
         }
     };
+    const params = useParams();
+    const router = useRouter();
+
+    const onMemberClick = () => {
+        if (member.id === currentMember.id) {
+            return;
+        }
+
+        router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+    };
 
     return (
         <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
             <div className="group flex gap-x-2 items-start w-full">
-                <div className="cursor-pointer hover:drop-shadow-md transition">
+                <div
+                    className="cursor-pointer hover:drop-shadow-md transition"
+                    onClick={onMemberClick}>
                     <UserAvatar source={member.profile.imageUrl} />
                 </div>
                 <div className="flex flex-col w-full">
                     <div className="flex items-center gap-x-2">
                         <div className="flex items-center">
-                            <p className="font-semibold text-sm hover:underline cursor-pointer">
+                            <p
+                                className="font-semibold text-sm hover:underline cursor-pointer"
+                                onClick={onMemberClick}>
                                 {member.profile.name}
                             </p>
                             <ActionTooltip label={member.role}>
