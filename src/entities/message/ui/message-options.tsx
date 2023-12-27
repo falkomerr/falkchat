@@ -1,7 +1,7 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { ActionTooltip } from '@/entities/action-tooltip';
-import { Edit, Trash } from 'lucide-react';
 import { useModal } from '@/shared/hooks';
+import { ActionTooltip } from '@/shared/ui/action-tooltip';
+import { Edit, Trash } from 'lucide-react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface props {
     canEditMessage: boolean;

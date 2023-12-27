@@ -1,6 +1,6 @@
 'use client';
 
-import { useModal } from '@/shared/hooks/lib/use-modal-store';
+import { useModal } from '@/shared/hooks';
 import { Button } from '@/shared/ui/button';
 import {
     Dialog,
@@ -127,8 +127,7 @@ export const EditChannelModal = ({}) => {
                                         <Select
                                             disabled={isLoading}
                                             onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                        >
+                                            defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger className="bg-zinc-300/50 border-0 focus:ring-0 text-black ring-offset-0 capitalize outline-none">
                                                     <SelectValue placeholder="Select a channel type" />
@@ -139,8 +138,7 @@ export const EditChannelModal = ({}) => {
                                                     <SelectItem
                                                         key={type}
                                                         value={type}
-                                                        className="capitalize"
-                                                    >
+                                                        className="capitalize">
                                                         {type.toLowerCase()}
                                                     </SelectItem>
                                                 ))}

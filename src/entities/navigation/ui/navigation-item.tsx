@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@/shared/utils/lib/utils';
+import { ActionTooltip } from '@/shared/ui/action-tooltip';
+import { cn } from '@/shared/utils';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import { ActionTooltip } from './action-tooltip';
 
 interface props {
     id: string;
@@ -33,8 +33,7 @@ export const NavigationItem = ({ id, name, imageUrl }: props) => {
                     className={cn(
                         'relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden',
                         params?.server === id && 'bg-primary/10 text-primary rounded-[16px]',
-                    )}
-                >
+                    )}>
                     <Image
                         fill
                         src={imageUrl}

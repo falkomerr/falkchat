@@ -1,5 +1,5 @@
 'use client';
-import { useModal } from '@/shared/hooks/lib/use-modal-store';
+import { useModal } from '@/shared/hooks';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -35,8 +35,7 @@ export const ServerHeader = ({ server, role }: props) => {
                     {isModerator && (
                         <DropdownMenuItem
                             onClick={() => onOpen('invite', { server })}
-                            className="flex justify-between text-indigo-600 dark:text-indigo-400  px-3 py-2 cursor-pointer"
-                        >
+                            className="flex justify-between text-indigo-600 dark:text-indigo-400  px-3 py-2 cursor-pointer">
                             Invite People
                             <UserPlus2 className="w-6 h-6" />
                         </DropdownMenuItem>
@@ -45,8 +44,7 @@ export const ServerHeader = ({ server, role }: props) => {
                     {isAdmin && (
                         <DropdownMenuItem
                             className="flex justify-between dark:text-white px-3 py-2 cursor-pointer"
-                            onClick={() => onOpen('editServer', { server })}
-                        >
+                            onClick={() => onOpen('editServer', { server })}>
                             Server Settings
                             <Settings className="w-6 h-6" />
                         </DropdownMenuItem>
@@ -54,8 +52,7 @@ export const ServerHeader = ({ server, role }: props) => {
                     {isModerator && (
                         <DropdownMenuItem
                             className="flex justify-between dark:text-white px-3 py-2 cursor-pointer"
-                            onClick={() => onOpen('users', { server })}
-                        >
+                            onClick={() => onOpen('users', { server })}>
                             Manage Users
                             <Users className="w-6 h-6" />
                         </DropdownMenuItem>
@@ -63,8 +60,7 @@ export const ServerHeader = ({ server, role }: props) => {
                     {isModerator && (
                         <DropdownMenuItem
                             className="flex justify-between dark:text-white px-3 py-2 cursor-pointer"
-                            onClick={() => onOpen('createChannel')}
-                        >
+                            onClick={() => onOpen('createChannel')}>
                             Create Channel
                             <PlusCircle className="w-6 h-6" />
                         </DropdownMenuItem>
@@ -73,8 +69,7 @@ export const ServerHeader = ({ server, role }: props) => {
                     {isAdmin && (
                         <DropdownMenuItem
                             className="flex justify-between text-rose-500 px-3 py-2 cursor-pointer"
-                            onClick={() => onOpen('deleteServer', { server })}
-                        >
+                            onClick={() => onOpen('deleteServer', { server })}>
                             Delete Server
                             <Trash className="w-6 h-6" />
                         </DropdownMenuItem>
@@ -82,8 +77,7 @@ export const ServerHeader = ({ server, role }: props) => {
                     {!isAdmin && (
                         <DropdownMenuItem
                             className="flex justify-between text-rose-500  px-3 py-2 cursor-pointer"
-                            onClick={() => onOpen('leaveServer', { server })}
-                        >
+                            onClick={() => onOpen('leaveServer', { server })}>
                             Leave Server
                             <LogOut className="w-6 h-6" />
                         </DropdownMenuItem>

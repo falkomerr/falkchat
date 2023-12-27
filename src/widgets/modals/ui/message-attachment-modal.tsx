@@ -1,8 +1,7 @@
 'use client';
 
-import { FileUpload } from '@/features/file-upload';
-import { useModal } from '@/shared/hooks/lib/use-modal-store';
-import qs from 'query-string';
+import { FileUpload } from '@/features/file';
+import { useModal } from '@/shared/hooks';
 import { Button } from '@/shared/ui/button';
 import {
     Dialog,
@@ -16,9 +15,10 @@ import { Form, FormControl, FormField, FormItem } from '@/shared/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import qs from 'query-string';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { useEffect } from 'react';
 
 const formSchema = z.object({
     fileUrl: z.string().min(1, {

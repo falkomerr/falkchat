@@ -1,4 +1,4 @@
-import { NavigationSidebar } from '@/widgets/navigation-sidebar';
+import { NavigationSidebar } from '@/widgets/navigation';
 import { ReactNode } from 'react';
 
 const MainLayout = ({ children }: { children: ReactNode }) => {

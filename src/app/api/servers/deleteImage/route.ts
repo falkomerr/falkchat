@@ -1,4 +1,4 @@
-import { currentProfile } from '@/shared/utils/lib/current-profile';
+import { currentProfile } from '@/shared/utils';
 import { NextResponse } from 'next/server';
 import { UTApi } from 'uploadthing/server';
 

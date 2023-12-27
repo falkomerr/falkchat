@@ -1,6 +1,6 @@
-import { BurgerMenu } from '@/entities/burger-menu';
-import { SocketIndicator } from '@/entities/socket-indicatior';
-import { UserAvatar } from '@/entities/user-avatar';
+import { SocketIndicator } from '@/entities/socket';
+import { UserAvatar } from '@/entities/user';
+import { BurgerMenu } from '@/shared/ui/burger-menu';
 import { UserButton } from '@clerk/nextjs';
 import { Hash } from 'lucide-react';
 

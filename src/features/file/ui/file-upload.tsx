@@ -1,10 +1,10 @@
+import { FilePdf } from '@/entities/file';
 import { Skeleton } from '@/shared/ui/skeleton';
-import { UploadDropzone } from '@/shared/utils/lib/uploadthing';
+import { UploadDropzone } from '@/shared/utils';
 import '@uploadthing/react/styles.css';
 import { X } from 'lucide-react';
 import Image from 'next/image';
-import React, { useState } from 'react';
-import { FilePdf } from '@/entities/file-pdf';
+import { useState } from 'react';
 
 interface props {
     onChange: (url?: string) => void;
@@ -31,8 +31,7 @@ export const FileUpload = ({ onChange, value, endpoint }: props) => {
                 <button
                     onClick={() => onChange('')}
                     className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm "
-                    type="button"
-                >
+                    type="button">
                     <X className="h-4 w-4" />
                 </button>
             </div>
@@ -46,8 +45,7 @@ export const FileUpload = ({ onChange, value, endpoint }: props) => {
                 <button
                     onClick={() => onChange('')}
                     className="bg-rose-500 text-white p-1 -top-2 -right-2 rounded-full absolute shadow-sm "
-                    type="button"
-                >
+                    type="button">
                     <X className="h-4 w-4" />
                 </button>
             </div>

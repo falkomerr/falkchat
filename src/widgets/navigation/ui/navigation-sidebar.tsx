@@ -1,10 +1,8 @@
-import { ModeToggle } from '@/entities/mode-toggle';
-import { NavigationCreate } from '@/entities/navigation-create';
-import { NavigationItem } from '@/entities/navigation-item';
+import { NavigationCreate, NavigationItem } from '@/entities/navigation';
+import { ModeToggle } from '@/shared/ui/mode-toggle';
 import { ScrollArea } from '@/shared/ui/scroll-area';
 import { Separator } from '@/shared/ui/separator';
-import { currentProfile } from '@/shared/utils/lib/current-profile';
-import { db } from '@/shared/utils/lib/db';
+import { currentProfile, db } from '@/shared/utils';
 import { redirect } from 'next/navigation';
 
 export const NavigationSidebar = async ({}) => {

@@ -1,6 +1,5 @@
-import { ServerSidebar } from '@/widgets/server-sidebar';
-import { currentProfile } from '@/shared/utils/lib/current-profile';
-import { db } from '@/shared/utils/lib/db';
+import { currentProfile, db } from '@/shared/utils';
+import { ServerSidebar } from '@/widgets/server';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';

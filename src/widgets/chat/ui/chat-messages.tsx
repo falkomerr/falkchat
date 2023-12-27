@@ -1,7 +1,7 @@
 'use client';
 
-import { ChatItem } from '@/features/chat-item';
-import { ChatWelcome } from '@/features/chat-welcome';
+import { ChatItem } from '@/features/chat';
+import { ChatWelcome } from '@/features/chat';
 import { useChatQuery, useChatScroll, useChatSocket } from '@/shared/hooks';
 import { MessageWithMemberWithProfile } from '@/shared/types';
 import { Member } from '@prisma/client';
@@ -47,7 +47,7 @@ export const ChatMessages = ({
         paramKey,
         paramValue,
     });
-    
+
     useChatSocket({ queryKey, addKey, updateKey });
 
     useChatScroll({

@@ -1,5 +1,4 @@
-import { currentProfile } from '@/shared/utils/lib/current-profile';
-import { db } from '@/shared/utils/lib/db';
+import { currentProfile, db } from '@/shared/utils';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(req: Request, { params }: { params: { serverId: string } }) {

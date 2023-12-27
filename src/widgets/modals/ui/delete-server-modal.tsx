@@ -1,6 +1,6 @@
 'use client';
 
-import { useModal } from '@/shared/hooks/lib/use-modal-store';
+import { useModal } from '@/shared/hooks';
 import { Button } from '@/shared/ui/button';
 import {
     Dialog,
@@ -61,8 +61,7 @@ export const DeleteServerModal = ({}) => {
                             disabled={loading}
                             onClick={onCancel}
                             variant="ghost"
-                            className="outline-none"
-                        >
+                            className="outline-none">
                             Cancel
                         </Button>
                         <Button disabled={loading} onClick={onConfirm} variant="destructive">

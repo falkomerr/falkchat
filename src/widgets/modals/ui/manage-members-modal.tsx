@@ -1,20 +1,8 @@
 'use client';
 
-import {
-    Check,
-    Gavel,
-    Loader2,
-    MoreVertical,
-    Shield,
-    ShieldAlert,
-    ShieldCheck,
-    ShieldQuestion,
-} from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-
-import { UserAvatar } from '@/entities/user-avatar';
-import { useModal } from '@/shared/hooks/lib/use-modal-store';
+import { UserAvatar } from '@/entities/user';
+import { useModal } from '@/shared/hooks';
+import { ServerWithMembersWithProfiles } from '@/shared/types';
 import {
     Dialog,
     DialogContent,
@@ -34,10 +22,21 @@ import {
     DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
 import { ScrollArea } from '@/shared/ui/scroll-area';
-import { ServerWithMembersWithProfiles } from '@/shared/types';
 import { MemberRole } from '@prisma/client';
 import axios from 'axios';
+import {
+    Check,
+    Gavel,
+    Loader2,
+    MoreVertical,
+    Shield,
+    ShieldAlert,
+    ShieldCheck,
+    ShieldQuestion,
+} from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import qs from 'query-string';
+import { useState } from 'react';
 
 const roleIconMap = {
     GUEST: null,
@@ -135,8 +134,7 @@ export const ManageUsersModal = () => {
                                                         <DropdownMenuItem
                                                             onClick={() =>
                                                                 onChangeRole(member.id, 'GUEST')
-                                                            }
-                                                        >
+                                                            }>
                                                             <Shield className="h-4 w-4 mr-2" />
                                                             Guest
                                                             {member.role === 'GUEST' && (
@@ -146,8 +144,7 @@ export const ManageUsersModal = () => {
                                                         <DropdownMenuItem
                                                             onClick={() =>
                                                                 onChangeRole(member.id, 'MODERATOR')
-                                                            }
-                                                        >
+                                                            }>
                                                             <ShieldCheck className="h-4 w-4 mr-2" />
                                                             Moderator
                                                             {member.role === 'MODERATOR' && (
@@ -159,8 +156,7 @@ export const ManageUsersModal = () => {
                                             </DropdownMenuSub>
                                             <DropdownMenuSeparator />
                                             <DropdownMenuItem
-                                                onClick={() => onMemberKick(member.id)}
-                                            >
+                                                onClick={() => onMemberKick(member.id)}>
                                                 <Gavel className="h-4 w-4 mr-2" />
                                                 Kick
                                             </DropdownMenuItem>

@@ -1,5 +1,4 @@
-import { currentProfile } from '@/shared/utils/lib/current-profile';
-import { db } from '@/shared/utils/lib/db';
+import { currentProfile, db } from '@/shared/utils';
 import { MemberRole } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';

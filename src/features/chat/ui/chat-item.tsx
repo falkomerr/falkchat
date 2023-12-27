@@ -1,10 +1,9 @@
-import { ActionTooltip } from '@/entities/action-tooltip';
-import { FileImage } from '@/entities/file-image';
-import { FilePdf } from '@/entities/file-pdf';
-import { MessageContent } from '@/entities/message-content';
-import { MessageEditForm } from '@/entities/message-edit-form';
-import { MessageOptions } from '@/entities/message-options';
-import { UserAvatar } from '@/entities/user-avatar';
+'use client';
+
+import { FileImage, FilePdf } from '@/entities/file';
+import { MessageContent, MessageEditForm, MessageOptions } from '@/entities/message';
+import { UserAvatar } from '@/entities/user';
+import { ActionTooltip } from '@/shared/ui/action-tooltip';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Member, Profile } from '@prisma/client';
 import axios from 'axios';

@@ -1,12 +1,10 @@
-import { ChatHeader } from '@/features/chat-header';
-import { ChatInput } from '@/features/chat-input';
+import { ChatHeader, ChatInput } from '@/features/chat';
 import { currentProfile, db } from '@/shared/utils';
-import { ChatMessages } from '@/widgets/chat-messages';
-import { MediaRoom } from '@/widgets/media-room';
+import { ChatMessages } from '@/widgets/chat/ui/chat-messages';
+import { MediaRoom } from '@/widgets/media/ui/media-room';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { ChannelType } from '@prisma/client';
 import { redirect } from 'next/navigation';
-
 
 interface props {
     params: {

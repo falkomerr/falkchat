@@ -1,7 +1,6 @@
 'use client';
 
-import { useOrigin } from '@/shared/hooks';
-import { useModal } from '@/shared/hooks/lib/use-modal-store';
+import { useModal, useOrigin } from '@/shared/hooks';
 import { Button } from '@/shared/ui/button';
 import {
     Dialog,
@@ -82,8 +81,7 @@ export const InviteModal = ({}) => {
                         disabled={loading}
                         variant="link"
                         size="sm"
-                        className="text-xs text-zinc-500 mt-4"
-                    >
+                        className="text-xs text-zinc-500 mt-4">
                         Generate a new link
                         <RefreshCw className="w-4 h-4 ml-2" />
                     </Button>

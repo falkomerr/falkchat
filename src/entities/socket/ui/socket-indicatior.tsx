@@ -1,7 +1,7 @@
 'use client';
 
 import { Loader2 } from 'lucide-react';
-import { useSocket } from '../shared/providers/ui/socket-provider';
+import { useSocket } from '@/shared/providers';
 
 export const SocketIndicator = ({}) => {
     const { isConnected } = useSocket();

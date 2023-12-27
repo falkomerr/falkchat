@@ -1,11 +1,9 @@
+import { ChatHeader, ChatInput } from '@/features/chat';
+import { createOrFindConversation, currentProfile, db } from '@/shared/utils';
+import { ChatMessages } from '@/widgets/chat/ui/chat-messages';
+import { MediaRoom } from '@/widgets/media/ui/media-room';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
-
-import { ChatHeader } from '@/features/chat-header';
-import { ChatInput } from '@/features/chat-input';
-import { createOrFindConversation, currentProfile, db } from '@/shared/utils';
-import { ChatMessages } from '@/widgets/chat-messages';
-import { MediaRoom } from '@/widgets/media-room';
 
 interface MemberIdPageProps {
     params: {

@@ -1,12 +1,13 @@
-import { ServerHeader } from '@/features/server-header';
-import { ServerMember } from '@/features/server-member';
-import { ServerSearch } from '@/features/server-search';
-import { ServerSection } from '@/features/server-section';
-import { ServerChannel } from '@/features/server-channel';
+import {
+    ServerChannel,
+    ServerHeader,
+    ServerMember,
+    ServerSearch,
+    ServerSection,
+} from '@/features/server';
 import { ScrollArea } from '@/shared/ui/scroll-area';
 import { Separator } from '@/shared/ui/separator';
-import { currentProfile } from '@/shared/utils/lib/current-profile';
-import { db } from '@/shared/utils/lib/db';
+import { currentProfile, db } from '@/shared/utils';
 import { ChannelType, MemberRole } from '@prisma/client';
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react';
 import { redirect } from 'next/navigation';

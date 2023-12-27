@@ -1,7 +1,7 @@
-import { ServerSidebar } from '@/widgets/server-sidebar';
 import { Button } from '@/shared/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/shared/ui/sheet';
-import { NavigationSidebar } from '@/widgets/navigation-sidebar';
+import { NavigationSidebar } from '@/widgets/navigation/ui/navigation-sidebar';
+import { ServerSidebar } from '@/widgets/server/ui/server-sidebar';
 import { Menu } from 'lucide-react';
 
 interface props {

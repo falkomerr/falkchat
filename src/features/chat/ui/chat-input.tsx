@@ -1,17 +1,17 @@
 'use client';
 
-import { useModal } from '@/shared/hooks/lib/use-modal-store';
+import { EmojiPicker } from '@/entities/emoji';
+import { useModal } from '@/shared/hooks';
 import { Form, FormControl, FormField, FormItem } from '@/shared/ui/form';
 import { Input } from '@/shared/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { Plus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import qs from 'query-string';
 import { KeyboardEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { EmojiPicker } from '@/features/emoji-picker';
-import { useRouter } from 'next/navigation';
 
 interface props {
     apiUrl: string;
@@ -75,8 +75,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: props) => {
                                                 query,
                                             })
                                         }
-                                        className="absolute top-7 left-7 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
-                                    >
+                                        className="absolute top-7 left-7 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center">
                                         <Plus className="text-white dark:text-[#313338]" />
                                     </button>
                                     <Input

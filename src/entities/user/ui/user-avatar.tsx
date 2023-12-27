@@ -1,5 +1,5 @@
 import { Avatar, AvatarImage } from '@/shared/ui/avatar';
-import { cn } from '@/shared/utils/lib/utils';
+import { cn } from '@/shared/utils';
 
 interface props {
     source?: string;

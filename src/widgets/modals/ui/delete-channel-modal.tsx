@@ -1,6 +1,6 @@
 'use client';
 
-import { useModal } from '@/shared/hooks/lib/use-modal-store';
+import { useModal } from '@/shared/hooks';
 import { Button } from '@/shared/ui/button';
 import {
     Dialog,

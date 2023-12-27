@@ -1,6 +1,6 @@
 'use client';
 
-import { FileUpload } from '@/features/file-upload';
+import { FileUpload } from '@/features/file';
 import { Button } from '@/shared/ui/button';
 import {
     Dialog,
