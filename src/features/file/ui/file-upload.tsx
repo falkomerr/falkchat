@@ -1,10 +1,10 @@
-import { FilePdf } from '@/entities/file';
 import { Skeleton } from '@/shared/ui/skeleton';
-import { UploadDropzone } from '@/shared/utils';
 import '@uploadthing/react/styles.css';
-import { X } from 'lucide-react';
+import { FileIcon, X } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import type { OurFileRouter } from '@/app/api/uploadthing/core';
+import { generateComponents } from '@uploadthing/react';
 
 interface props {
     onChange: (url?: string) => void;
@@ -13,6 +13,7 @@ interface props {
 }
 
 export const FileUpload = ({ onChange, value, endpoint }: props) => {
+    const { UploadDropzone } = generateComponents<OurFileRouter>();
     const [isLoaded, setIsLoaded] = useState(false);
     const fileType = value.split('.').pop();
 
@@ -41,7 +42,16 @@ export const FileUpload = ({ onChange, value, endpoint }: props) => {
     if (value && fileType === 'pdf') {
         return (
             <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10 mx-4">
-                <FilePdf fileUrl={value} label={value} />
+                <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10 mx-4">
+                    <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400 pointer" />
+                    <a
+                        href={value}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline">
+                        PDF File
+                    </a>
+                </div>
                 <button
                     onClick={() => onChange('')}
                     className="bg-rose-500 text-white p-1 -top-2 -right-2 rounded-full absolute shadow-sm "

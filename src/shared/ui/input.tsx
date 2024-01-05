@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from '@/shared/utils/lib/utils';
+import { cn } from '@/shared/tailwind-merge/utils';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 

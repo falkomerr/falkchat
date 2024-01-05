@@ -1,4 +1,5 @@
-import { currentProfile, db } from '@/shared/utils';
+import { currentProfile } from '@/shared/api-functions';
+import { db } from '@/shared/api-functions/db';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 

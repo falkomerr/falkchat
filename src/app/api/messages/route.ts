@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { currentProfile, db } from '@/shared/utils';
+import { currentProfile, db } from '@/shared/api-functions';
 import { Message } from '@prisma/client';
 
 const MESSAGE_BATCH = 10;

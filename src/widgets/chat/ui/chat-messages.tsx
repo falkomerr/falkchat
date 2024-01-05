@@ -1,13 +1,12 @@
 'use client';
 
-import { ChatItem } from '@/features/chat';
-import { ChatWelcome } from '@/features/chat';
-import { useChatQuery, useChatScroll, useChatSocket } from '@/shared/hooks';
+import { ChatItem } from './chat-item';
+import { useChatQuery, useChatScroll, useChatSocket } from '@/shared/use-chat';
 import { MessageWithMemberWithProfile } from '@/shared/types';
 import { Member } from '@prisma/client';
 import { format } from 'date-fns';
-import { Loader2, ServerCrash } from 'lucide-react';
-import { ElementRef, Fragment, useRef } from 'react';
+import { Hash, Loader2, ServerCrash } from 'lucide-react';
+import React, { ElementRef, Fragment, useRef } from 'react';
 
 interface props {
     name: string;
@@ -78,7 +77,24 @@ export const ChatMessages = ({
     return (
         <div className="flex-1 flex flex-col py-4 overflow-y-auto" ref={chatRef}>
             {!hasNextPage && <div className="flex-1" />}
-            {!hasNextPage && <ChatWelcome type={type} name={name} />}
+            {!hasNextPage && (
+                <div className="space-y-2 px-4 mb-4">
+                    {type === 'channel' && (
+                        <div className="h-[75px] w-[75px] rounded-full bg-zinc-500 dark:bg-zinc-700 flex items-center justify-center">
+                            <Hash className="h-12 w-12 text-white" />
+                        </div>
+                    )}
+                    <p className="text-xl md:text-3xl font-bold">
+                        {type === 'channel' ? 'Welcome to #' : ''}
+                        {name}
+                    </p>
+                    <p className="text-zinc-600 dark:text-zinc-400 text-sm">
+                        {type === 'channel'
+                            ? `This is the start of #${name} channel.`
+                            : `This is the start of your conversation with ${name}.`}
+                    </p>
+                </div>
+            )}
             {hasNextPage && (
                 <div className="flex justify-center">
                     {isFetchingNextPage ? (

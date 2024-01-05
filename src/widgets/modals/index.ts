@@ -1,11 +1,4 @@
-export { CreateChannelModal } from './ui/create-channel-modal';
-export { CreateServerModal } from './ui/create-server-modal';
-export { DeleteChannelModal } from './ui/delete-channel-modal';
 export { DeleteMessageModal } from './ui/delete-message-modal';
-export { DeleteServerModal } from './ui/delete-server-modal';
-export { EditChannelModal } from './ui/edit-channel-modal';
-export { EditServerModal } from './ui/edit-server-modal';
-export { InitialModal } from './ui/initial-modal';
 export { InviteModal } from './ui/invite-modal';
 export { LeaveServerModal } from './ui/leave-modal';
 export { ManageUsersModal } from './ui/manage-members-modal';

@@ -1,4 +1,4 @@
-import { currentProfile, db } from '@/shared/utils';
+import { currentProfile, db } from '@/shared/api-functions';
 import { NextResponse } from 'next/server';
 
 export async function DELETE(req: Request, { params }: { params: { memberId: string } }) {

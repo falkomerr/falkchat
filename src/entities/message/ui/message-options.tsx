@@ -1,4 +1,4 @@
-import { useModal } from '@/shared/hooks';
+import { useModal } from '@/shared/use-modal';
 import { ActionTooltip } from '@/shared/ui/action-tooltip';
 import { Edit, Trash } from 'lucide-react';
 import { Dispatch, SetStateAction } from 'react';
