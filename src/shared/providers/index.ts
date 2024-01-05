@@ -1,4 +1,4 @@
-export { ModalProvider } from './ui/modal-provider';
-export { QueryProvider } from './ui/query-provider';
-export { SocketProvider, useSocket } from './ui/socket-provider';
-export { ThemeProvider } from './ui/theme-provider';
+export { ModalProvider } from './modal-provider';
+export { QueryProvider } from './query-provider';
+export { SocketProvider, useSocket } from './socket-provider';
+export { ThemeProvider } from './theme-provider';

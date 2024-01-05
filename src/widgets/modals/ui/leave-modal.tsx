@@ -1,6 +1,6 @@
 'use client';
 
-import { useModal } from '@/shared/hooks';
+import { useModal } from '@/shared/use-modal';
 import { Button } from '@/shared/ui/button';
 import {
     Dialog,
@@ -59,8 +59,7 @@ export const LeaveServerModal = ({}) => {
                             disabled={loading}
                             onClick={onCancel}
                             variant="ghost"
-                            className="outline-none"
-                        >
+                            className="outline-none">
                             Cancel
                         </Button>
                         <Button disabled={loading} onClick={onConfirm} variant="destructive">

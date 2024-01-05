@@ -11,7 +11,7 @@ import {
 } from 'react-hook-form';
 
 import { Label } from '@/shared/ui/label';
-import { cn } from '@/shared/utils/lib/utils';
+import { cn } from '@/shared/tailwind-merge/utils';
 
 const Form = FormProvider;
 
@@ -149,8 +149,7 @@ const FormMessage = React.forwardRef<
             ref={ref}
             id={formMessageId}
             className={cn('text-sm font-medium text-destructive', className)}
-            {...props}
-        >
+            {...props}>
             {body}
         </p>
     );

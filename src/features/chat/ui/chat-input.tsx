@@ -1,17 +1,20 @@
 'use client';
 
-import { EmojiPicker } from '@/entities/emoji';
-import { useModal } from '@/shared/hooks';
+import { useModal } from '@/shared/use-modal';
 import { Form, FormControl, FormField, FormItem } from '@/shared/ui/form';
 import { Input } from '@/shared/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { Plus } from 'lucide-react';
+import { Plus, Smile } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import qs from 'query-string';
-import { KeyboardEvent } from 'react';
+import React, { KeyboardEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/popover';
+import Picker from '@emoji-mart/react';
+import data from '@emoji-mart/data';
+import { useTheme } from 'next-themes';
 
 interface props {
     apiUrl: string;
@@ -25,6 +28,8 @@ const formSchema = z.object({
 });
 
 export const ChatInput = ({ apiUrl, query, name, type }: props) => {
+    const { resolvedTheme } = useTheme();
+
     const { onOpen } = useModal();
     const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
@@ -56,6 +61,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: props) => {
             await onSubmit({ content: (event.target as HTMLInputElement).value });
         }
     };
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} autoComplete="off">
@@ -89,11 +95,23 @@ export const ChatInput = ({ apiUrl, query, name, type }: props) => {
                                         }`}
                                     />
                                     <div className="absolute top-7 right-7">
-                                        <EmojiPicker
-                                            onChange={(emoji: string) =>
-                                                field.onChange(`${field.value}${emoji}`)
-                                            }
-                                        />
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <Smile className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+                                            </PopoverTrigger>
+                                            <PopoverContent
+                                                side="right"
+                                                sideOffset={40}
+                                                className="bg-transparent border-none shadow-none drop-shadow-none mb-16">
+                                                <Picker
+                                                    data={data}
+                                                    theme={resolvedTheme}
+                                                    onEmojiSelect={(emoji: string) =>
+                                                        field.onChange(`${field.value}${emoji}`)
+                                                    }
+                                                />
+                                            </PopoverContent>
+                                        </Popover>
                                     </div>
                                 </div>
                             </FormControl>

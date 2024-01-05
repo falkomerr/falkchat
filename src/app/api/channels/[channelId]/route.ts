@@ -1,4 +1,4 @@
-import { currentProfile, db } from '@/shared/utils';
+import { currentProfile, db } from '@/shared/api-functions';
 import { MemberRole } from '@prisma/client';
 import { NextResponse } from 'next/server';
 

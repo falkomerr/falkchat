@@ -1,7 +1,6 @@
 'use client';
 
-import { UserAvatar } from '@/entities/user';
-import { useModal } from '@/shared/hooks';
+import { useModal } from '@/shared/use-modal';
 import { ServerWithMembersWithProfiles } from '@/shared/types';
 import {
     Dialog,
@@ -37,6 +36,7 @@ import {
 import { useRouter } from 'next/navigation';
 import qs from 'query-string';
 import { useState } from 'react';
+import { Avatar, AvatarImage } from '@/shared/ui/avatar';
 
 const roleIconMap = {
     GUEST: null,
@@ -109,7 +109,9 @@ export const ManageUsersModal = () => {
                 <ScrollArea className="mt-8 max-h-[420px] pr-6">
                     {server?.members?.map((member) => (
                         <div key={member.id} className="flex items-center gap-x-2 mb-6">
-                            <UserAvatar source={member.profile.imageUrl} />
+                            <Avatar className={'h-7 w-7 md:h-10 md:w-10 select-none'}>
+                                <AvatarImage src={member.profile.imageUrl} />
+                            </Avatar>
                             <div className="flex flex-col gap-y-1">
                                 <div className="text-xs font-semibold flex items-center gap-x-1">
                                     {member.profile.name}

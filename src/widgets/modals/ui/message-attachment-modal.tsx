@@ -1,7 +1,7 @@
 'use client';
 
 import { FileUpload } from '@/features/file';
-import { useModal } from '@/shared/hooks';
+import { useModal } from '@/shared/use-modal';
 import { Button } from '@/shared/ui/button';
 import {
     Dialog,

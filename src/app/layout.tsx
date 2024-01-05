@@ -1,5 +1,5 @@
 import { ModalProvider, QueryProvider, SocketProvider, ThemeProvider } from '@/shared/providers';
-import { cn } from '@/shared/utils/';
+import { cn } from '@/shared/tailwind-merge/';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import { Analytics } from '@vercel/analytics/react';
