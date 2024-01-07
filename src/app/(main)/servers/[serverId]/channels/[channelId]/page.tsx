@@ -1,4 +1,4 @@
-import { ChannelIdPage } from '@/client-pages/chat-id';
+import { ChannelIdPage } from '@/pages/chat-id';
 
 interface props {
     params: {

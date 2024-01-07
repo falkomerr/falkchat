@@ -1,5 +1,5 @@
-import { currentProfile } from '@/shared/api-functions';
-import { db } from '@/shared/api-functions/db';
+import { currentProfile } from '@/shared/api-helpers';
+import { db } from '@/shared/api-helpers/db';
 import { MemberRole } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';

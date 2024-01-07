@@ -1,5 +1,5 @@
-import { currentProfile } from '@/shared/api-functions';
-import { db } from '@/shared/api-functions/db';
+import { currentProfile } from '@/shared/api-helpers';
+import { db } from '@/shared/api-helpers/db';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(req: Request, { params }: { params: { serverId: string } }) {

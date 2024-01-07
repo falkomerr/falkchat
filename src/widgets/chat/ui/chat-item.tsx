@@ -1,19 +1,22 @@
 'use client';
 
-import { MessageContent, MessageEditForm, MessageOptions } from '@/entities/message';
+import { cn } from '@/shared/tailwind-merge';
 import { ActionTooltip } from '@/shared/ui/action-tooltip';
+import { Avatar, AvatarImage } from '@/shared/ui/avatar';
+import { Skeleton } from '@/shared/ui/skeleton';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Member, Profile } from '@prisma/client';
 import axios from 'axios';
 import { FileIcon, ShieldAlert, ShieldCheck } from 'lucide-react';
+import NextImage from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import qs from 'query-string';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Avatar, AvatarImage } from '@/shared/ui/avatar';
-import { Skeleton } from '@/shared/ui/skeleton';
-import NextImage from 'next/image';
+import { conditions } from '../lib/conditions';
+import { MessageEditForm } from './message-edit-form';
+import { MessageOptions } from './message-options';
 
 interface props {
     id: string;
@@ -81,15 +84,12 @@ export const ChatItem = ({
         };
     }, []);
 
-    const fileType = fileUrl?.split('.').pop();
-
-    const isAdmin = currentMember.role === 'ADMIN';
-    const isModerator = currentMember.role === 'ADMIN';
-    const isOwner = currentMember.id === member.id;
-    const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
-    const canEditMessage = !deleted && isOwner && !fileUrl;
-    const isPDF = fileType === 'pdf' && fileUrl;
-    const isImage = !isPDF && fileUrl;
+    const { canDeleteMessage, canEditMessage, isPDF, isImage } = conditions(
+        fileUrl,
+        currentMember,
+        deleted,
+        member,
+    );
 
     const isLoading = form.formState.isSubmitting;
 
@@ -108,6 +108,7 @@ export const ChatItem = ({
             console.error(error);
         }
     };
+
     const params = useParams();
     const router = useRouter();
 
@@ -147,13 +148,13 @@ export const ChatItem = ({
                     </div>
                     {isImage && (
                         <a
-                            href={fileUrl}
+                            href={fileUrl ?? undefined}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48">
                             {isLoadingImage && <Skeleton className="h-full w-full bg-gray-400" />}
                             <NextImage
-                                src={fileUrl}
+                                src={fileUrl as string}
                                 fill
                                 alt={content}
                                 className="object-cover"
@@ -166,7 +167,7 @@ export const ChatItem = ({
                         <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10 mx-4">
                             <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400 pointer" />
                             <a
-                                href={fileUrl}
+                                href={fileUrl ?? undefined}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline">
@@ -175,7 +176,18 @@ export const ChatItem = ({
                         </div>
                     )}
                     {!fileUrl && !isEditing && (
-                        <MessageContent content={content} deleted={deleted} isUpdated={isUpdated} />
+                        <p
+                            className={cn(
+                                'text-sm text-zinc-600 dark:text-zinc-300',
+                                deleted && 'italic text-zinc-500 dark:text-zinc-400 text-xs mt-1',
+                            )}>
+                            {content}
+                            {isUpdated && !deleted && (
+                                <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
+                                    (edited)
+                                </span>
+                            )}
+                        </p>
                     )}
                     {!fileUrl && isEditing && (
                         <MessageEditForm form={form} onSubmit={onSubmit} isLoading={isLoading} />

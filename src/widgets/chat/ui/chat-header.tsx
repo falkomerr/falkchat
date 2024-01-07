@@ -1,8 +1,8 @@
+import { useSocket } from '@/shared/socket';
+import { Avatar, AvatarImage } from '@/shared/ui/avatar';
 import { BurgerMenu } from '@/shared/ui/burger-menu';
 import { UserButton } from '@clerk/nextjs';
 import { Hash, Loader2 } from 'lucide-react';
-import { Avatar, AvatarImage } from '@/shared/ui/avatar';
-import { useSocket } from '@/shared/providers/socket-provider';
 
 interface props {
     serverId: string;

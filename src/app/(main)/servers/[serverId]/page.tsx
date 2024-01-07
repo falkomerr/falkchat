@@ -1,4 +1,4 @@
-import { ServerIdPage } from '@/client-pages/server-id';
+import { ServerIdPage } from '@/pages/server-id';
 
 interface props {
     params: {

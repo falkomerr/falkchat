@@ -1,4 +1,4 @@
-import { InvitePage } from '@/client-pages/invite-page';
+import { InvitePage } from '@/pages/invite-page';
 
 interface props {
     params: {

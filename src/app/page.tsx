@@ -1,4 +1,4 @@
-import { SetupPage } from '@/client-pages/setup';
+import { SetupPage } from '@/pages/setup';
 
 const Page = async ({}) => {
     return <SetupPage />;

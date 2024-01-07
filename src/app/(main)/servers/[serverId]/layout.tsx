@@ -1,4 +1,4 @@
-import { currentProfile, db } from '@/shared/api-functions';
+import { currentProfile, db } from '@/shared/api-helpers';
 import { ServerSidebar } from '@/widgets/server';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';

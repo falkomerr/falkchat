@@ -1,4 +1,4 @@
-import { MemberIdPage } from '@/client-pages/chat-id';
+import { MemberIdPage } from '@/pages/chat-id';
 
 interface MemberIdPageProps {
     params: {

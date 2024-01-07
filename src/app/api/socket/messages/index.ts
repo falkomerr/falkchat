@@ -1,5 +1,5 @@
-import { pagesCurrentProfile } from '@/shared/api-functions';
-import { db } from '@/shared/api-functions/db';
+import { pagesCurrentProfile } from '@/shared/api-helpers';
+import { db } from '@/shared/api-helpers/db';
 import { NextApiResponseServerIO } from '@/shared/types';
 import { NextApiRequest } from 'next';
 

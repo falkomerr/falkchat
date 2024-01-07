@@ -1,4 +1,4 @@
-import { ModalProvider, QueryProvider, SocketProvider, ThemeProvider } from '@/shared/providers';
+import { ModalProvider, QueryProvider, SocketProvider, ThemeProvider } from '@/app/_providers';
 import { cn } from '@/shared/tailwind-merge/';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';

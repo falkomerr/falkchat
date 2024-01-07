@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
-import { currentProfile, db } from '@/shared/api-functions';
+import { currentProfile, db } from '@/shared/api-helpers';
 import { Message } from '@prisma/client';
+import { NextResponse } from 'next/server';
 
 const MESSAGE_BATCH = 10;
 export async function GET(req: Request) {

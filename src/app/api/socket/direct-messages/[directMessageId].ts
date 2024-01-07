@@ -1,5 +1,5 @@
+import { db, pagesCurrentProfile } from '@/shared/api-helpers';
 import { NextApiResponseServerIO } from '@/shared/types';
-import { db, pagesCurrentProfile } from '@/shared/api-functions';
 import { MemberRole } from '@prisma/client';
 import { NextApiRequest } from 'next';
 

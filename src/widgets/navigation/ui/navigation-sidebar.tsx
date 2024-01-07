@@ -1,16 +1,12 @@
-import { NavigationItem } from './navigation-item';
+import { currentProfile, db } from '@/shared/api-helpers';
 import { ModeToggle } from '@/shared/ui/mode-toggle';
 import { ScrollArea } from '@/shared/ui/scroll-area';
 import { Separator } from '@/shared/ui/separator';
-import { currentProfile, db } from '@/shared/api-functions';
 import { redirect } from 'next/navigation';
-import { ActionTooltip } from '@/shared/ui/action-tooltip';
-import { Plus } from 'lucide-react';
-import { useModal } from '@/shared/use-modal';
+import { CreateServerButton } from './navigation-create-server';
+import { NavigationItem } from './navigation-item';
 
 export const NavigationSidebar = async ({}) => {
-    const { onOpen } = useModal();
-
     const profile = await currentProfile();
 
     if (!profile) {
@@ -44,22 +40,7 @@ export const NavigationSidebar = async ({}) => {
                     })}
                 </ScrollArea>
                 <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
-                <div>
-                    <ActionTooltip side="right" align="center" label="Add a server">
-                        <button
-                            className="group flex items-center outline-none "
-                            onClick={() => {
-                                onOpen('createServer');
-                            }}>
-                            <div className="flex m-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden items-center justify-center bg-background dark:bg-neutral-700 group-hover:bg-blue-500">
-                                <Plus
-                                    className="group-hover:text-white transition text-blue-500"
-                                    size={25}
-                                />
-                            </div>
-                        </button>
-                    </ActionTooltip>
-                </div>
+                <CreateServerButton />
             </div>
 
             <div className="pb-3 mt-auto flex items-center flex-col gap-y-4 z-50">
